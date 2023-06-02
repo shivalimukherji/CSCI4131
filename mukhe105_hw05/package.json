@@ -1,0 +1,11 @@
+{
+  "name": "mukhe105_hwk05",
+  "version": "1.0.0",
+  "description": "Assignment 5",
+  "main": "createServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mukhe105",
+  "license": "ISC"
+}

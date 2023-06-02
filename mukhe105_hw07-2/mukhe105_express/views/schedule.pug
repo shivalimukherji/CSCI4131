@@ -1,0 +1,153 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
+    link(rel='stylesheet', type='text/css', href='/views/css/style.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49', crossorigin='anonymous')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js', integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy', crossorigin='anonymous')
+    title My Schedule
+  body
+    nav.navbar.navbar-expanded.navbar-light.bg-light.mb-5
+      .container-fluid(style='background: blueviolet;')
+        ul.nav.nav-pills
+          li.nav-item
+            a.nav-link(href='/') Home
+          li.nav-item.active
+            a.nav-link.active(href='/schedule') Schedule
+          li.nav-item
+            a.nav-link(href='/addEvent') Add Event
+          li.nav-item
+            a.nav-link(href='/stock') Stock
+          li.nav-item
+            a.nav-link(href='/logout')
+              img(src='/views/images/logout-rounded-48.png')
+    .container.mb-5
+      .alert.alert-secondary(role='alert')
+        | Click on a day to see its events
+    .container.mb-3
+      ul#days.nav.nav-tabs.nav-fill
+        li.nav-item
+          a.nav-link(onclick='formTable(this)') Sunday
+        li.nav-item
+          a.nav-link(onclick='formTable(this)') Monday
+        li.nav-item
+          a.nav-link(onclick='formTable(this)') Tuesday
+        li.nav-item
+          a.nav-link(onclick='formTable(this)') Wednesday
+        li.nav-item
+          a.nav-link(onclick='formTable(this)') Thursday
+        li.nav-item
+          a.nav-link(onclick='formTable(this)') Friday
+        li.nav-item
+          a.nav-link(onclick='formTable(this)') Saturday
+      br
+      br
+      .container
+        table#scheduleTable.table.table-striped
+          thead
+            tr
+              th(scope='col') Name
+              th(scope='col') Time
+              th(scope='col') Location
+              th(scope='col') Phone
+              th(scope='col') Extra Information
+          tbody
+    script.
+      function formTable(element) {
+      $('#days li a').removeClass("active");
+      $(element).addClass("active");
+      clearTable();
+      let day = $(element).text().toLowerCase();
+      //TODO: Make request and fill table with events for the day
+      fetch('getSchedule?day=' + day)
+      .then(response => response.json())
+      .then(data => {
+      // console.log(data);
+      fillTable(data);
+      })
+      .catch(error => {
+      console.error(error);
+      });
+      }
+      function fillTable(arr) {
+      var out = "";
+      var i;
+      console.log("inside fillTable");
+      console.log(arr.length);
+      //let tableBody = document.getElementsByTagName('tbody');
+      //document.getElementById("scheduleTable").tBodies.item(0).innerHTML
+      for(i = 0; i < arr.length; i++) {
+      out += "<tr id='" + arr[i].id + "'>";
+      out +="<td>";
+      out += arr[i].name;
+      out += "</td>";
+      out +="<td>";
+      out += convertTo12hTime(arr[i].start);
+      out += "-</br>";
+      out += convertTo12hTime(arr[i].end);
+      out += "</td>";
+      out +="<td>";
+      out += arr[i].location;
+      out += "</td>";
+      out +="<td>";
+      out += arr[i].phone;
+      out += "</td>";
+      out +="<td>";
+      out += '<a href="' + arr[i].url + '">';
+      out += arr[i].info;
+      out += '</a><br>';
+      out += "<div class='hiddendiv'>";
+      out += "<button type='button' class='btn btn-danger btn-sm' onclick='deleteEvent(" + arr[i].id + ")'>";
+      out += "  <span class='glyphicon glyphicon-trash'> Delete</span>";
+      out += "</button>";
+      out += "<a class='btn btn-info btn-sm' href='editEvent/" + arr[i].id + "'>";
+      out += "  <span class='glyphicon glyphicon-pencil'> Edit</span>";
+      out += "</a>";
+      out += "</div>";
+      out += "</td>";
+      out += "</tr>";
+      }
+      //console.log(out);
+      document.getElementById("scheduleTable").tBodies.item(0).innerHTML = out;
+      }
+      function clearTable() {
+      $('#scheduleTable tbody').empty();
+      }
+      function deleteEvent(id) {
+      console.log('Event id: ' + id);
+      let confirmText = "Do you really want to delete this event?";
+      if (confirm(confirmText) == true) {
+      console.log('call fetch api to delete...');
+      fetch('/deleteEvent/' + id)
+      .then(response => {
+      console.log(response.status);
+      if (response.status == 200) {
+      console.log('Successfully deleted event id: ' + id);
+      document.getElementById(id).remove();
+      } else {
+      console.log('Unable to delete event id: ' + id);
+      }
+      });
+      }
+      }
+      function convertTo12hTime(ts24h) {
+      var timeArr = ts24h.split(":");
+      let h = Number(timeArr[0]);
+      let m = Number(timeArr[1]);
+      var AmOrPm = h >= 12 ? 'PM' : 'AM';
+      h = (h % 12) || 12;
+      //make sure to print "00" for 0 mins
+      var ms = '';
+      if (m === 0) {
+      ms = '00';
+      } else if (m > 0 && m <= 9) {
+      ms = '0' + m.toString();
+      } else {
+      ms = m.toString();
+      }
+      var ts12h = "" + h + ":" + ms + " " + AmOrPm;
+      return ts12h;
+      }

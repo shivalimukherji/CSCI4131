@@ -1,0 +1,100 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    link(rel='stylesheet', type='text/css', href='/views/css/style.css')
+    title Stock Page
+    style(media='screen').
+      textarea {
+      background-color: black;
+      color: #fff;
+      font-size: 80%;
+      width: 100%;
+      }
+  body
+    nav.navbar.navbar-expanded.navbar-light.bg-light.mb-5
+      .container-fluid(style='background: blueviolet;')
+        ul.nav.nav-pills
+          li.nav-item
+            a.nav-link(href='/') Home
+          li.nav-item
+            a.nav-link(href='/schedule') Schedule
+          li.nav-item
+            a.nav-link(href='/addEvent') Add Event
+          li.nav-item.active
+            a.nav-link.active(href='/stock') Stock
+          li.nav-item
+            a.nav-link(href='/logout')
+              img(src='/views/images/logout-rounded-48.png')
+    .container
+      .panel.panel-default
+        .panel-body
+          center Welcome to Stock Page
+    .container
+      .row
+        .col
+          table#stockSymbolTable.table.table-bordered.table-hover
+            tbody
+              tr
+                td.col-md-6 Company
+                td.col-md-6
+                  .form-group
+                    select#stockSymbol(name='Company')
+                      option(value='MSFT') Microsoft
+                      option(value='META') Meta Platforms
+                      option(value='AAPL') Apple Inc
+                      option(value='AMZN') Amazon
+                      option(value='TSLA') Tesla
+              tr
+                td(colspan='2')
+                  button(type='button', name='getData', onclick='getStockData(this)') Get Data
+    .container
+      table#detailedStockData.table
+        thead
+          tr
+            th(scope='col') Company-MetaData
+            th(scope='col') Stock-Info
+        tbody
+    script.
+      function getStockData(element) {
+      //TODO: Call stock API and fill textarea using dynamic html
+      let stock_sym = document.querySelector('#stockSymbol').value;
+      console.log('stock sym selected');
+      console.log(stock_sym);
+      let req_uri = "https://www.alphavantage.co/query?";
+      let qry_str = "function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + stock_sym + "&apikey=2A7M0FV2T1XOICZR";
+      let api_req = req_uri + qry_str;
+      console.log(api_req);
+      fetch(api_req)
+      .then(response => response.json())
+      .then(data => {
+      //console.log(data);
+      fillContent(data);
+      })
+      .catch(error => {
+      console.error(error);
+      });
+      }
+      function fillContent(json) {
+      var out = "";
+      let metaData = json["Meta Data"];
+      console.log('meta data');
+      console.log(metaData);
+      let stockInfo = json["Time Series (Daily)"];
+      console.log('stock info');
+      console.log(stockInfo);
+      out += "<tr><td>";
+      out +="<textarea rows=20>";
+      out += JSON.stringify(metaData, undefined, 4);
+      out += "</textarea>";
+      out += "</td>";
+      out += "<td>";
+      out +="<textarea rows=20>";
+      out += JSON.stringify(stockInfo, undefined, 4);
+      out += "</textarea>";
+      out += "</td></tr>";
+      document.getElementById("detailedStockData").tBodies.item(0).innerHTML = out;
+      }

@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	    <link rel="stylesheet" type="text/css" href="client/css/style.css">
+        <title>Stock Page</title>
+        <style media="screen">
+            textarea {
+                background-color: black;
+                color: #fff;
+                font-size: 80%;
+                width: 100%;
+            }
+        </style>        
+    </head>
+    <body>
+        <nav class="navbar navbar-expanded navbar-light bg-light mb-5">
+            <div class="container-fluid" style="background: blueviolet;">
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/schedule">Schedule</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/addEvent">Add Event</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link active" href="/stock">Stock</a>
+              </li>              
+              <li class="nav-item">
+                <a class="nav-link" href="/logout" ><img src="client/images/logout-rounded-48.png"/></a>
+              </li>        
+            </ul>
+            </div>
+         </nav>
+         <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-body"><center>Welcome to Stock Page</center></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-bordered table-hover" id="stockSymbolTable">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-6">Company</td>
+                                <td class="col-md-6">
+                                    <div class="form-group">
+                                        <select id="stockSymbol" name="Company">
+                                            <option value="MSFT">Microsoft</option>
+                                            <option value="META">Meta Platforms</option>
+                                            <option value="AAPL">Apple Inc</option>
+                                            <option value="AMZN">Amazon</option>
+                                            <option value="TSLA">Tesla</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr><td colspan="2"><button type="button" name="getData" onclick="getStockData(this)">Get Data</button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <table class="table" id="detailedStockData">
+                <thead>
+                    <tr><th scope="col">Company-MetaData</th><th scope="col">Stock-Info</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <script>
+            function getStockData(element) {
+                //TODO: Call stock API and fill textarea using dynamic html
+                let stock_sym = document.querySelector('#stockSymbol').value;
+                console.log('stock sym selected');
+                console.log(stock_sym);
+                let req_uri = "https://www.alphavantage.co/query?";
+                let qry_str = "function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + stock_sym + "&apikey=2A7M0FV2T1XOICZR";
+                let api_req = req_uri + qry_str;
+                console.log(api_req);
+                fetch(api_req)
+                .then(response => response.json())
+                .then(data => {
+                    //console.log(data);
+                    fillContent(data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            }
+            function fillContent(json) {
+                var out = "";
+                let metaData = json["Meta Data"];
+                console.log('meta data');
+                console.log(metaData);
+                let stockInfo = json["Time Series (Daily)"];
+                console.log('stock info');
+                console.log(stockInfo);
+                out += "<tr><td>";
+                out +="<textarea rows=20>";
+                out += JSON.stringify(metaData, undefined, 4);
+                out += "</textarea>";
+                out += "</td>";
+                out += "<td>";
+                out +="<textarea rows=20>";
+                out += JSON.stringify(stockInfo, undefined, 4);
+                out += "</textarea>";
+                out += "</td></tr>";
+                document.getElementById("detailedStockData").tBodies.item(0).innerHTML = out;
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,84 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49', crossorigin='anonymous')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js', integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy', crossorigin='anonymous')
+    title Edit Event
+  body
+    nav.navbar.navbar-expanded.navbar-light.bg-light.mb-5
+      .container-fluid(style='background: blueviolet;')
+        ul.nav.nav-pills
+          li.nav-item
+            a.nav-link(href='/') Home
+          li.nav-item
+            a.nav-link(href='/schedule') Schedule
+          li.nav-item
+            a.nav-link(href='/addEvent') Add Event
+          li.nav-item
+            a.nav-link(href='/stock') Stock
+          li.nav-item
+            a.nav-link(href='/logout')
+              img(src='/views/images/logout-rounded-48.png')
+
+    .container.mb-5
+      form#updateEvent(name='updateEvent', method='post', action='/postEventUpdate/' + eventToEdit.id)    
+        .form-group
+          label(for='nameInput') Event
+          input#nameInput.form-control(type='text', name='event', pattern='[a-zA-Z0-9\s]+', title='Event must be alphanumeric', required='', value= eventToEdit.name )
+          small#eventHelp.form-text.text-muted
+            | Event name must be alphanumeric
+        .form-group
+          label(for='dayInput') Day of Week
+          select#dayInput.form-control(name='day')
+           option(value='sunday', selected=eventToEdit.day == 'sunday')
+            | Sunday
+           option(value='monday', selected=eventToEdit.day == 'monday')
+            | Monday            
+           option(value='tuesday', selected=eventToEdit.day == 'tuesday')
+            | Tuesday
+           option(value='wednesday', selected=eventToEdit.day == 'wednesday')
+            | Wednesday
+           option(value='thursday', selected=eventToEdit.day == 'thursday')
+            | Thursday
+           option(value='friday', selected=eventToEdit.day == 'friday')
+            | Friday
+           option(value='saturday', selected=eventToEdit.day == 'saturday')
+            | Saturday
+        .form-group
+          label(for='startTimeInput') Start
+          input#startTimeInput.form-control(type='time', name='start', required='', value=eventToEdit.start)
+        .form-group
+          label(for='endTimeInput') End
+          input#endTimeInput.form-control(type='time', name='end', required='', value=eventToEdit.end)
+        .form-group
+          label(for='phoneInput') Phone
+          input#phoneInput.form-control(type='text', name='phone', required='', value=eventToEdit.phone)
+        .form-group
+          label(for='locationInput') Location
+          input#locationInput.form-control(type='text', name='location', required='', value=eventToEdit.location)
+        .form-group
+          label(for='extraInput') Extra Info
+          input#extraInput.form-control(type='text', name='info', required='', value=eventToEdit.info)
+        .form-group
+          label(for='urlInput') Enter URL for the Extra Info
+          input#urlInput.form-control(type='url', name='url', required='', value=eventToEdit.url)
+        button.btn.btn-block.btn-primary(type='submit') Submit
+    script.
+      function createAlert(count, events) {
+      let listItems = events.map((event) =>
+      `<li class="list-group-item">${event.name} from ${event.start} to ${event.end}`)
+      .join('');
+      let newHtml = `
+      <div class="alert alert-warning" role="alert" >
+      This event interferes with ${count} others:
+      <ul class="list-group">
+      ${listItems}
+      </ul>
+      </div>
+      `;
+      $('#overlapAlert').html(newHtml);
+      }
