@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!-- Table Fun -->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My Form</title>
+
+		<link rel="stylesheet" href="MyForm.css">
+        <link rel="stylesheet" href=
+        "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<script type="application/javascript" src="MyForm.js"></script>
+		<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKV_ZWS2vXsELohIbIxE_Liqf0msc0W2U&libraries=places"></script> -->
+		
+		<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCKV_ZWS2vXsELohIbIxE_Liqf0msc0W2U&callback=initMap" async defer></script>
+
+
+	</head>
+
+	<body>
+	<div class="body">
+		<div class="nav">
+            <nav>
+                <a href="MySchedule.html">My Schedule</a>
+                <a href="MyForm.html">Form Input</a>
+                <a href="AboutMe.html">About Me</a>
+            </nav>
+        </div>
+
+		<h2>My Form</h2>
+		<div class="container">
+	
+        
+		<!-- Start the form -->
+		<!-- method specifies the method of sending the information -->
+		<!-- action is the location of the server script that -->
+		<!-- will be used to process the form -->
+		<div class="row">
+		<div class="col-8">
+		<form method="post" id="form" action="https://www-users.cselabs.umn.edu/~cuixx327/a2.php">
+            <p>
+              <label>Event</label>
+              <input id="event" type="text" name="event" required><br>
+            </p>
+			<p>
+				<label>Day of the week</label>
+				<select name="day">
+					<option value="Monday" selected>Monday</option>
+					<option value="Tuesday">Tuesday</option>
+					<option value="Wednesday">Wednesday</option>
+					<option value="Thursday">Thursday</option>
+					<option value="Friday">Friday</option>
+				</select>
+			</p>
+            <p>
+              <label>Start</label>
+              <input id="start" type="time" name="start" required><br>
+            </p>
+            <p>
+              <label>End</label>
+              <input id="end" type="time" name="end" required><br>
+            </p>
+            <p>
+              <label>Phone</label>
+              <input id="phone" type="text" name="phone" required><br>
+            </p>
+			<p>
+				<label>Location</label>
+				<input id="location" type="text" name="location" required><br>
+			</p>
+			<p>
+				<label>Extra info</label>
+				<input id="extra" type="text" name="extra" required><br>
+			</p>
+			<p>
+				<label>Enter URL for the Extra info</label>
+				<input id="url" type="text" name="url" required><br>
+			</p>
+            
+        <br>
+          <input type="submit" value="Submit">
+        </form>
+		</div>
+		<div class="col-4">
+		
+		<div id="map"></div>
+		</div>
+		</div>
+
+		</div>
+	
+		  <div id="errorMessage" class="modal">
+			<div class="modal-content">
+			  <img class="icon" alt="close" src="images/close.png">
+			  <h2>Error</h2>
+			  <p>Event Name and Location must be alphanumeric</p>
+			  <button id="okButton" class="ok" onclick="errorButton()">OK</button>
+			</div>
+		</div>
+
+	</div>
+	
+	<style>
+#map {
+  height: 300px;
+  width:300px;
+}
+</style>
+	
+	<script> 
+function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 44.9727, lng: -93.23540000000003},
+      zoom: 14
+    });
+    var input = document.getElementById('location');
+   // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo('bounds', map);
+
+    var infowindow = new google.maps.InfoWindow();
+    var marker = new google.maps.Marker({
+        map: map,
+        anchorPoint: new google.maps.Point(0, -29)
+    });
+
+    autocomplete.addListener('place_changed', function() {
+        infowindow.close();
+        marker.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+            return;
+        }
+  
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+        } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);
+        }
+        marker.setIcon(({
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(35, 35)
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
+    
+        var address = '';
+        if (place.address_components) {
+            address = [
+              (place.address_components[0] && place.address_components[0].short_name || ''),
+              (place.address_components[1] && place.address_components[1].short_name || ''),
+              (place.address_components[2] && place.address_components[2].short_name || '')
+            ].join(' ');
+        }
+    
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+        infowindow.open(map, marker);
+      
+
+    });
+}
+</script>
+
+	</body>
+
+   
+</html>

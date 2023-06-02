@@ -1,0 +1,80 @@
+.container {
+    display: flex;
+    width: 100%;
+
+
+}
+
+.text {
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.body {
+    background-color: lightpink;
+}
+
+.nav {
+    border: 3px solid beige;
+    width: auto;
+    margin: 20px;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: beige;
+    color: white;
+
+}
+
+
+.widget {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    
+}
+
+.photo {
+    width: 200px;
+    height: 200px;
+    padding-left: 400px;
+    padding-bottom: 1000px;
+
+}
+
+.facts {
+    border-style: solid;
+    height: 600px;
+    
+}
+
+.my-image {
+    /* max-width: 400px;
+    max-height: 600px; */
+    border-style: solid;
+    
+}
+
+.date-calculator {
+    border-style: solid;
+    height: 600px;
+    width: 50%;
+    background-color: bisque;
+}
+
+.subheading {
+    font-style: underline;
+    margin: 5px 40px 0px 40px;
+}
+
+.subtitle {
+    margin: 5px 40px 0px 40px;
+}
+
+.date-selector {
+    margin: 5px 40px 0px 40px;
+
+}
+
+.red {
+    color: red; 
+}

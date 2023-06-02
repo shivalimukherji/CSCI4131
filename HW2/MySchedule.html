@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>My Weekly Schedule</title>
+        <link rel="stylesheet" href="MySchedule.css">
+        <link rel="stylesheet" href=
+        "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+
+    </head>
+	<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+	<script>
+
+        $(function(){
+          $("img.zoom").mouseover(
+            function(){
+              $(".preview").html( $("<img>").attr("src", $(this).attr("rel")) );
+            }
+          );
+            $("img.zoom").mouseout(
+            function(){
+              $(".preview").html( $("<img>").attr("src", "goldy.png") );
+            }
+          );
+        });
+</script>
+
+    <body>
+    <div class="body">
+    <div class="nav">
+        <nav>
+            <a href="MySchedule.html">My Schedule</a>
+            <a href="MyForm.html">Form Input</a>
+            <a href="AboutMe.html">About Me</a>
+        </nav>
+    </div>
+
+        <div class="h1"><h1>My Weekly Schedule</h1></div>
+
+        <div class="container">
+
+            <div class="table">
+            <table>
+                <tr>
+                    <th>Day</th>
+                    <th>Event</th>
+                    <th>Time</th>
+                    <th>Event Location (Virtual or Physical)</th>
+                    <th>Phone Number</th>
+                    <th>URL</th>
+                </tr>
+                <tr>
+                    <td>Monday</td>
+                    <td>CSCI 4131 Lecture</td>
+                    <td>11:15am-12:30pm</td>
+                    <td>Tate 105<div><img src="img/Tate.png" rel="img/Tate.png" alt="Tate hall" width="70" height="50" class="zoom"></div></td>
+                    <td>No Phone Number</td>
+                    <td> <a href="https://onestop2.umn.edu/pcas/viewCatalogCourse.do?courseId=790654">CSCI 4131 Info</a></td>
+                </tr>
+                <tr>
+                    <td>Monday</td>
+                    <td>CSCI 5801 Lecture</td>
+                    <td>1:00pm-2:15pm</td>
+                    <td>Bruiniks 330<div><img src="img/bruiniks.jpg" rel="img/bruiniks.jpg" alt="Bruiniks hall" width="70" height="50" class="zoom"></div></td>
+                    <td>No Phone Number</td>
+                    <td> <a href="https://onestop2.umn.edu/pcas/viewCatalogCourse.do?courseId=004312">CSCI 5801 Info</a></td>
+                </tr>
+                <tr>
+                    <td>Monday</td>
+                    <td>CSCI 4511W Lecture</td>
+                    <td>4:00pm-5:15pm</td>
+                    <td>Keller 3-230<div><img src="img/keller.jpg" rel="img/keller.jpg" alt="Keller hall" width="70" height="50" class="zoom"></div></td>
+                    <td>No Phone Number</td>
+                    <td> <a href="https://onestop2.umn.edu/pcas/viewCatalogCourse.do?courseId=803956">CSCI 5801 Info</a></td>
+                </tr>
+                <tr>
+                    <td>Tuesday</td>
+                    <td>Gym</td>
+                    <td>8:00am-9:00am</td>
+                    <td>UMN Recreation and Wellness Center<div><img src="img/rec.jpg" rel="img/rec.jpg" alt="Rec-well" width="70" height="50" class="zoom"></div></td>
+                    <td>(612) 626-9222</td>
+                    <td> <a href="https://recwell.umn.edu">RecWell Info</a></td>
+                </tr>
+                <tr>
+                    <td>Tuesday</td>
+                    <td>CSCI 3081W Lecture</td>
+                    <td>11:15am-12:30pm</td>
+                    <td>Amundson B75<div><img src="img/amundson.jpg" rel="img/amundson.jpg" alt="Amundson hall" width="70" height="50" class="zoom"></div></td>
+                    <td>No Phone Number</td>
+                    <td> <a href="https://onestop2.umn.edu/pcas/viewCatalogCourse.do?courseId=793076">CSCI 3081W Info</a></td>
+                </tr>
+                <tr>
+                    <td>Tuesday</td>
+                    <td>IDSC 3001</td>
+                    <td>5:45pm-8:15pm</td>
+                    <td>Hanson 1-104<div><img src="img/carlson.jpg" rel="img/carlson.jpg" alt="Hanson hall" width="70" height="50" class="zoom"></div></td>
+                    <td>No Phone Number</td>
+                    <td> <a href="https://onestop2.umn.edu/pcas/viewCatalogCourse.do?courseId=013132">IDSC 3001 Info</a></td>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    <td>CSCI 4131 Lecture</td>
+                    <td>11:15am-12:30pm</td>
+                    <td>Tate 105<div><img src="img/Tate.png" rel="img/Tate.png" alt="Tate hall" width="70" height="50" class="zoom"></div></td>
+                    <td>No Phone Number</td>
+                    <td> <a href="https://onestop2.umn.edu/pcas/viewCatalogCourse.do?courseId=790654">CSCI 4131 Info</a></td>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    <td>CSCI 5801 Lecture</td>
+                    <td>1:00pm-2:15pm</td>
+                    <td>Bruiniks 330<div><img src="img/bruiniks.jpg" rel="img/bruiniks.jpg" alt="Bruiniks hall" width="70" height="50" class="zoom"></div></td>
+                    <td>No Phone Number</td>
+                    <td> <a href="https://onestop2.umn.edu/pcas/viewCatalogCourse.do?courseId=004312">CSCI 5801 Info</a></td>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    <td>CSCI 4511W Lecture</td>
+                    <td>4:00pm-5:15pm</td>
+                    <td>Keller 3-230<div><img src="img/keller.jpg" rel="img/keller.jpg" alt="Keller hall" width="70" height="50" class="zoom"></div></td>
+                    <td>No Phone Number</td>
+                    <td> <a href="https://onestop2.umn.edu/pcas/viewCatalogCourse.do?courseId=803956">CSCI 4511W Info</a></td>
+                </tr>
+                <tr>
+                <td>Thursday</td>
+                    <td>Gym</td>
+                    <td>8:00am-9:00am</td>
+                    <td>UMN Recreation and Wellness Center<div><img src="img/rec.jpg" rel="img/rec.jpg" alt="Rec-well" width="70" height="50" class="zoom"></div></td>
+                    <td>(612) 626-9222</td>
+                    <td> <a href="https://recwell.umn.edu">RecWell Info</a></td>
+                </tr>
+                <tr>
+                    <td>Thursday</td>
+                    <td>CSCI 3081W Lecture</td>
+                    <td>11:15am-12:30pm</td>
+                    <td>Amundson B75<div><img src="img/amundson.jpg" rel="img/amundson.jpg" alt="Amundson hall" width="70" height="50" class="zoom"></div></td>
+                    <td>No Phone Number</td>
+                    <td> <a href="https://onestop2.umn.edu/pcas/viewCatalogCourse.do?courseId=793076">CSCI 3081W Info</a></td>
+                </tr>
+                <tr>
+                    <td>Friday</td>
+                    <td>CSCI 3081W Lab</td>
+                    <td>11:15am-12:05pm</td>
+                    <td>Keller 1-250<div><img src="img/keller.jpg" rel="img/keller.jpg" alt="Keller hall" width="70" height="50" class="zoom"></div></td>
+                    <td>No Phone Number</td>
+                    <td> <a href="https://onestop2.umn.edu/pcas/viewCatalogCourse.do?courseId=793076">CSCI 3081W Info</a></td>
+                </tr>
+                <tr>
+                    <td>Friday</td>
+                    <td>Painting Club</td>
+                    <td>4:00pm-6:00pm</td>
+                    <td>Rapson 56<div><img src="img/rapson.jpg" rel="img/rapson.jpg" alt="Rapson hall" width="70" height="50" class="zoom"></div></td>
+                    <td>No Phone Number</td>
+                    <td>No URL</td>
+                </tr>
+                <tr>
+                    <td>Saturday</td>
+                    <td>Gym</td>
+                    <td>8:00am-9:00am</td>
+                    <td>UMN Recreation and Wellness Center<div><img src="img/rec.jpg" rel="img/rec.jpg" alt="Rec-well" width="70" height="50" class="zoom"></div></td>
+                    <td>(612) 626-9222</td>
+                    <td> <a href="https://recwell.umn.edu">RecWell Info</a></td>
+                </tr>
+                <tr>
+                    <td>Sunday</td>
+                    <td>Gym</td>
+                    <td>8:00am-9:00am</td>
+                    <td>UMN Recreation and Wellness Center<div><img src="img/rec.jpg" rel="img/rec.jpg" alt="Rec-well" width="70" height="50" class="zoom"></div></td>
+                    <td>(612) 626-9222</td>
+                    <td> <a href="https://recwell.umn.edu">RecWell Info</a></td>
+                </tr>
+                <tr>
+                    <td>Sunday</td>
+                    <td>Piano Lesson</td>
+                    <td>11:15am-12:15pm</td>
+                    <td>Virtual (Zoom)</td>
+                    <td>No Phone Number</td>
+                    <td> <a href=https://www.musikalessons.com/piano-lessons-minneapolis>Musika Lessons Info</a></td>
+                </tr>
+            </table>
+            </div>
+            <div class="img-container">
+                <div class="preview" >
+                    <img src="goldy.png" alt="Goldy Gopher" width="400" height="300" >
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    </body>
+
+
+
+
+
+</html>

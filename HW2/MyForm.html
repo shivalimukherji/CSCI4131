@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- Table Fun -->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My Form</title>
+
+		<link rel="stylesheet" href="MyForm.css">
+        <link rel="stylesheet" href=
+        "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<script type="application/javascript" src="MyForm.js"></script>
+
+
+	</head>
+
+	<body>
+	<div class="body">
+		<div class="nav">
+            <nav>
+                <a href="MySchedule.html">My Schedule</a>
+                <a href="MyForm.html">Form Input</a>
+                <a href="AboutMe.html">About Me</a>
+            </nav>
+        </div>
+
+		<h2>My Form</h2>
+		<div class="container">
+
+        
+		<!-- Start the form -->
+		<!-- method specifies the method of sending the information -->
+		<!-- action is the location of the server script that -->
+		<!-- will be used to process the form -->
+		<form method="post" id="form" action="https://www-users.cselabs.umn.edu/~cuixx327/a2.php">
+            <p>
+              <label>Event</label>
+              <input id="event" type="text" name="event" required><br>
+            </p>
+			<p>
+				<label>Day of the week</label>
+				<select name="day">
+					<option value="Monday" selected>Monday</option>
+					<option value="Tuesday">Tuesday</option>
+					<option value="Wednesday">Wednesday</option>
+					<option value="Thursday">Thursday</option>
+					<option value="Friday">Friday</option>
+				</select>
+			</p>
+            <p>
+              <label>Start</label>
+              <input id="start" type="time" name="start" required><br>
+            </p>
+            <p>
+              <label>End</label>
+              <input id="end" type="time" name="end" required><br>
+            </p>
+            <p>
+              <label>Phone</label>
+              <input id="phone" type="text" name="phone" required><br>
+            </p>
+			<p>
+				<label>Location</label>
+				<input id="location" type="text" name="location" required><br>
+			</p>
+			<p>
+				<label>Extra info</label>
+				<input id="extra" type="text" name="extra" required><br>
+			</p>
+			<p>
+				<label>Enter URL for the Extra info</label>
+				<input id="url" type="text" name="url" required><br>
+			</p>
+            
+        <br>
+          <input type="submit" value="Submit">
+        </form>
+
+		</div>
+	
+		  <div id="errorMessage" class="modal">
+			<div class="modal-content">
+			  <img class="icon" alt="close" src="images/close.png">
+			  <h2>Error</h2>
+			  <p>Event Name and Location must be alphanumeric</p>
+			  <button id="okButton" class="ok" onclick="errorButton()">OK</button>
+			</div>
+		</div>
+
+	</div>
+
+	</body>
+
+   
+</html>
